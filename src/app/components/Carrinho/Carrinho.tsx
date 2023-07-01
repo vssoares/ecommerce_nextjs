@@ -1,16 +1,53 @@
 'use client'
 
-import { useEcommerceContext } from "@/app/context/ecommerce"
 import { useEffect } from "react"
+import { useAnimation, motion, AnimatePresence } from 'framer-motion';
+import { useEcommerceContext } from "@/app/context/ecommerce"
 
 export default function Carrinho() {
    const { toggleCarrinho, setToggleCarrinho } = useEcommerceContext()
 
+   const controls = useAnimation();
+
+   useEffect(() => {
+      if (toggleCarrinho) {
+         controls.start('enter');
+      } else {
+         controls.start('leave');
+      }
+   }, [toggleCarrinho, controls]);
+
+   const carrinhoTransition = {
+      duration: 0.3,
+      ease: 'easeInOut',
+   };
+
    return (
-      <div className={toggleCarrinho ? '' : 'hidden'}>
-         <div className="fundo fixed inset-0 z-30 bg-gray-500 bg-opacity-75 transition-opacity" ></div >
-         <div
-            className="lista pointer-events-none z-40 fixed inset-y-0 right-0 flex max-w-full pl-10" >
+      <>
+         <AnimatePresence>
+            {toggleCarrinho && (
+                 <motion.div
+            initial="hidden"
+            animate={toggleCarrinho ? 'visible' : 'hidden'}
+            variants={{
+               hidden: { opacity: 0 },
+               visible: { opacity: 1 },
+               exit: { opacity: 0, transition: { duration: 0.3 } },
+            }}
+            transition={carrinhoTransition}
+            className="fundo fixed inset-0 z-30 bg-gray-500 bg-opacity-75 transition-opacity"
+         >
+         </motion.div>
+         <motion.div
+            initial="leave"
+            animate={controls}
+            variants={{
+               enter: { transform: 'translateX(0)' },
+               leave: { transform: 'translateX(100%)' },
+            }}
+            transition={carrinhoTransition}
+            className="lista pointer-events-none z-40 fixed inset-y-0 right-0 flex max-w-full pl-10"
+         >
             <div className="pointer-events-auto w-screen max-w-md">
                <div className="flex h-full flex-col bg-white shadow-xl">
                   <div className="flex items-start justify-between pt-6 px-6">
@@ -51,8 +88,7 @@ export default function Carrinho() {
                               <li className="flex py-6">
                                  <div
                                     className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                    <img
-                                       className="h-full w-full object-cover object-center" />
+                                    {/* <img className="h-full w-full object-cover object-center" /> */}
                                  </div>
                                  <div className="ml-4 flex flex-1 flex-col">
                                     <div>
@@ -113,8 +149,7 @@ export default function Carrinho() {
                         <a
                            href="#"
                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                        >Checkout</a
-                        >
+                        >Checkout</a>
                      </div>
                      <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
@@ -130,7 +165,10 @@ export default function Carrinho() {
                   </div>
                </div >
             </div >
-         </div >
-      </div>
+         </motion.div>
+            )}
+         </AnimatePresence>
+
+      </>
    )
 }
