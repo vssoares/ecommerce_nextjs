@@ -1,4 +1,6 @@
-import Header from './components/Header'
+
+import Carrinho from './components/Carrinho/Carrinho'
+import Header from './components/Header/Header'
 import { EcommerceContextProvider } from './context/ecommerce'
 import './globals.css'
 import { Inter } from 'next/font/google'
@@ -15,6 +17,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <EcommerceContextProvider>
           <Header />
+          <Carrinho />
           {children}
         </EcommerceContextProvider>
       </body>

@@ -1,12 +1,15 @@
+'use client'
+
+import { useEcommerceContext } from '@/app/context/ecommerce';
 import Image from 'next/image'
 
-export default function Home() {
+export default function Header() {
+    const { toggleCarrinho, setToggleCarrinho } = useEcommerceContext();
+
     return (
         <div>
             <div className="bg-white fixed right-0 left-0 top-0 z-20">
                 <header className="relative bg-white">
-
-
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="border-b border-gray-200">
                             <div className="flex h-16 items-center">
@@ -31,7 +34,7 @@ export default function Home() {
                                 <div className="ml-4 flex lg:ml-0">
                                     <a>
                                         <span className="sr-only">Your Company</span>
-                                        <Image width={50} height={50} src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=''/>
+                                        <Image width={50} height={50} src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt='' />
                                     </a>
                                 </div>
 
@@ -69,15 +72,12 @@ export default function Home() {
                                             </div>
                                         </div>
 
-                                        <a
-                                            className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >Company</a
-                                        >
+                                        <a className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                                        >Company</a>
 
                                         <a
                                             className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >Stores</a
-                                        >
+                                        >Stores</a>
                                     </div>
                                 </div>
 
@@ -121,7 +121,7 @@ export default function Home() {
                                     </div>
 
                                     <div className="ml-4 flow-root lg:ml-6">
-                                        <a
+                                        <a onClick={() => { setToggleCarrinho(!toggleCarrinho) }}
                                             className="group -m-2 cursor-pointer flex items-center p-2">
                                             <svg
                                                 className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"

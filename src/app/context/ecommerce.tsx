@@ -2,25 +2,32 @@
 
 import { createContext, useContext, Dispatch, SetStateAction, useState } from "react";
 
-type DataType = {
-   firstName: string;
-}
-
 interface ContextProps {
-   data: DataType[];
-   setData: Dispatch<SetStateAction<DataType[]>>;
+   // Carrinho
+   toggleCarrinho: boolean;
+   setToggleCarrinho: Dispatch<SetStateAction<boolean>>;
 }
 
 const EcommerceContext = createContext<ContextProps>({
-   data: [],
-   setData: (): DataType[] => []
+   // Carrinho
+   toggleCarrinho: false,
+   setToggleCarrinho: (): boolean => false,
 });
 
+
+
 export const EcommerceContextProvider = ({ children }: any) => {
-   const [data, setData] = useState<[] | DataType[]>([]);
+   // Carrinho
+   const [toggleCarrinho, setToggleCarrinho] = useState<boolean>(false);
+
+   const values = {
+      // Carrinho
+      toggleCarrinho,
+      setToggleCarrinho
+   }
 
    return (
-      <EcommerceContext.Provider value={{ data, setData }}>
+      <EcommerceContext.Provider value={values}>
          {children}
       </EcommerceContext.Provider>
    );
