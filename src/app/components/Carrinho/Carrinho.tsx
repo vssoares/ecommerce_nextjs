@@ -2,10 +2,14 @@
 
 import { useEffect } from "react"
 import { useAnimation, motion, AnimatePresence } from 'framer-motion';
-import { useEcommerceContext } from "@/app/context/ecommerce"
+import useToggleCarrinho, { ToggleCarrinhoState } from "../../store/carrinho";
+import Link from "next/link";
 
 export default function Carrinho() {
-   const { toggleCarrinho, setToggleCarrinho } = useEcommerceContext()
+   const { toggleCarrinho, setToggleCarrinho } = useToggleCarrinho(({ toggleCarrinho, setToggleCarrinho }: ToggleCarrinhoState) => ({
+      toggleCarrinho,
+      setToggleCarrinho
+   }));
 
    const controls = useAnimation();
 
@@ -36,6 +40,7 @@ export default function Carrinho() {
                   transition={carrinhoTransition}
                   exit={{ opacity: 0, transition: { duration: 0.3 } }}
                   className="fundo fixed inset-0 z-30 bg-gray-500 bg-opacity-75 transition-opacity"
+                  onClick={() => { setToggleCarrinho(false) }}
                >
                </motion.div>
                <motion.div
@@ -95,9 +100,9 @@ export default function Carrinho() {
                                              <div
                                                 className="flex justify-between text-base font-medium text-gray-900">
                                                 <h3>
-                                                   <a
+                                                   <Link
                                                       href="#">
-                                                      <p className="limite-texto"></p></a>
+                                                      <p className="limite-texto"></p></Link>
                                                 </h3>
                                                 <p className="ml-4">
                                                 </p>
@@ -146,10 +151,10 @@ export default function Carrinho() {
                               <p></p>
                            </div>
                            <div className="mt-6">
-                              <a
+                              <Link
                                  href="#"
                                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                              >Checkout</a>
+                              >Checkout</Link>
                            </div>
                            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                               <p>

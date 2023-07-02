@@ -1,11 +1,14 @@
 'use client'
 
-import { useEcommerceContext } from '@/app/context/ecommerce';
+import Link from "next/link";
+import useToggleCarrinho, { ToggleCarrinhoState } from "../../store/carrinho";
 import Image from 'next/image'
 
 export default function Header() {
-    const { toggleCarrinho, setToggleCarrinho } = useEcommerceContext();
-
+    const { toggleCarrinho, setToggleCarrinho } = useToggleCarrinho(({ toggleCarrinho, setToggleCarrinho }: ToggleCarrinhoState) => ({
+        toggleCarrinho,
+        setToggleCarrinho
+    }));
     return (
         <div>
             <div className="bg-white fixed right-0 left-0 top-0 z-20">
@@ -32,10 +35,10 @@ export default function Header() {
                                 </button>
 
                                 <div className="ml-4 flex lg:ml-0">
-                                    <a>
+                                    <span>
                                         <span className="sr-only">Your Company</span>
                                         <Image width={50} height={50} src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt='' />
-                                    </a>
+                                    </span>
                                 </div>
 
                                 <div className="hidden lg:ml-8 lg:block lg:self-stretch">
@@ -72,38 +75,40 @@ export default function Header() {
                                             </div>
                                         </div>
 
-                                        <a className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >Company</a>
+                                        <Link href={'/'} className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                                        >Company</Link>
 
-                                        <a
+                                        <Link href={'/'}
                                             className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >Stores</a>
+                                        >Stores</Link>
                                     </div>
                                 </div>
 
                                 <div className="ml-auto flex items-center">
                                     <div className="ml-auto flex items-center">
-                                        <a
+                                        <Link href={'/'}
                                             className="group cursor-pointer flex items-center p-2">
 
-                                        </a>
+                                        </Link>
                                     </div>
 
                                     <div
                                         className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        <a
+                                        <Link href={'/'}
                                             className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >Login</a
                                         >
+                                            Login
+                                        </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true"></span>
-                                        <a
+                                        <Link href={'/'}
                                             className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                                        >Cadastre-se</a
                                         >
+                                            Cadastre-se
+                                        </Link>
                                     </div>
 
                                     <div className="flex lg:ml-6">
-                                        <a className="p-2 text-gray-400 hover:text-gray-500">
+                                        <span className="p-2 text-gray-400 hover:text-gray-500">
                                             <span className="sr-only">Search</span>
                                             <svg
                                                 className="h-6 w-6"
@@ -117,11 +122,11 @@ export default function Header() {
                                                     strokeLinejoin="round"
                                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                             </svg>
-                                        </a>
+                                        </span>
                                     </div>
 
                                     <div className="ml-4 flow-root lg:ml-6">
-                                        <a onClick={() => { setToggleCarrinho(!toggleCarrinho) }}
+                                        <span onClick={() => { setToggleCarrinho(!toggleCarrinho) }}
                                             className="group -m-2 cursor-pointer flex items-center p-2">
                                             <svg
                                                 className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -139,7 +144,7 @@ export default function Header() {
                                                 className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"
                                             ></span>
                                             <span className="sr-only">items in cart, view bag</span>
-                                        </a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

@@ -1,7 +1,6 @@
 
 import Carrinho from './components/Carrinho/Carrinho'
 import Header from './components/Header/Header'
-import { EcommerceContextProvider } from './context/ecommerce'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -14,12 +13,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
-        <EcommerceContextProvider>
-          <Header />
-          <Carrinho />
-          {children}
-        </EcommerceContextProvider>
+      <head>
+        <title>Ecommerce Vaqueiro</title>
+        <meta
+          name="description"
+          content="Ecommerce Vaqueiro - O melhor do sertão"
+        />
+      </head>
+      <body className={inter.className + 'flex min-h-full flex-col p-24'}>
+        <Header />
+        <Carrinho />
+        {children}
       </body>
     </html>
   )
